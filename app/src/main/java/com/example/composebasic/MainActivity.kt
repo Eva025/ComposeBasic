@@ -5,15 +5,21 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,7 +51,43 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+    //var x : Int = 0
+    //var x by remember { mutableStateOf(0) }
+    var x = remember { mutableStateOf(0) }
     Column {
+        Row {
+            Button(
+                modifier = modifier,
+                onClick = {
+                    x.value = 0
+                }
+            ) {
+                Text("歸零")
+                Image(
+
+                    painter = painterResource(id = R.drawable.moon),
+                    contentDescription = "moon",
+                )
+            }
+            Button(
+                modifier = modifier,
+                onClick = {
+                    x.value = x.value*2
+                }
+            ) {
+                Text("*2")
+                Image(
+
+                    painter = painterResource(id = R.drawable.moon),
+                    contentDescription = "moon",
+                )
+            }
+        }
+        Text(text = x.value.toString(),
+             fontSize = 50.sp,
+             modifier = modifier.clickable { x.value++ }
+            )
+
         Row {
             Text(
                 text = stringResource(R.string.author),
